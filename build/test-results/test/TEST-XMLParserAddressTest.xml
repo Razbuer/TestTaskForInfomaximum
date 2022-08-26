@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="XMLParserAddressTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-08-26T08:06:23" hostname="DESKTOP-VJUHVLI" time="0.029">
+  <properties/>
+  <testcase name="[1] &lt;item city=&quot;Some city&quot; street=&quot;Some street&quot; house=&quot;1&quot; floor=&quot;1&quot; /&gt;" classname="XMLParserAddressTest" time="0.024"/>
+  <testcase name="[2] &lt;item house=&quot;1&quot; street=&quot;Some street&quot; city=&quot;Some city&quot; floor=&quot;1&quot; /&gt;" classname="XMLParserAddressTest" time="0.0"/>
+  <testcase name="[3]     &lt;item     city=&quot;Some city   &quot;    street=&quot;  Some street&quot;     house=&quot;1&quot;    floor=&quot;  01 &quot;     /&gt;    " classname="XMLParserAddressTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

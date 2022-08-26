@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+   <item      city="Барнаул" street="Дальняя улица" house="56" floor="1"     />      
+<item city="Баsрнаул"    street="Дальняя улица" house="56" floor="2" />
+<item city="Барdнаул" street= "Дальняя улица" house="56" floor="2" />
+</root>
