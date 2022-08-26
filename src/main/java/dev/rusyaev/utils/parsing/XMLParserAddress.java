@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class XMLParserAddress extends AbstractParserAddress implements ParserAddress {
+    @Override
     public Address getAddress(String parseLine) {
         //parseLine = parseLine.replaceAll("\\s*<item","").replaceAll("/>\\s*", "").replaceAll("\\s*=\\s*", "=");
 
