@@ -2,16 +2,14 @@ package dev.rusyaev.utils.parsing;
 
 import dev.rusyaev.entity.Address;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
 public abstract class AbstractParserAddress implements ParserAddress {
     @Override
     public void parsing(String filePath, Collection<Address> collection) throws FileNotFoundException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
             while (reader.ready()) {
                 try {
                     String fullAddress = reader.readLine();
