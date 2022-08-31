@@ -18,14 +18,15 @@ public class DecoratorCollectionForStatisticsAddresses<E> implements Collection<
     @Override
     public boolean add(E e) {
         if (e.getClass() == Address.class) {
-            // Подсчёт количества адресов на каждом этаже
             Address address = (Address) e;
 
+            // Подсчёт количества адресов на каждом этаже
             byte floor = address.getFloor();
             String city = address.getCity();
             countAddressesOnFloor.putIfAbsent(city, new HashMap<>());
-            countAddressesOnFloor.get(city).putIfAbsent(floor, 1L);
-            countAddressesOnFloor.get(city).put(floor, countAddressesOnFloor.get(city).get(floor) + 1);
+            Map<Byte, Long> cityOfCountAddressesOnFloor = countAddressesOnFloor.get(city);
+            cityOfCountAddressesOnFloor.putIfAbsent(floor, 1L);
+            cityOfCountAddressesOnFloor.put(floor, cityOfCountAddressesOnFloor.get(floor) + 1);
 
             // Подсчёт количества совпадений адресов
             if (collection.contains(address)) {

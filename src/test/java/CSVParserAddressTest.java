@@ -1,16 +1,36 @@
 import dev.rusyaev.entity.Address;
 import dev.rusyaev.utils.parsing.CSVParserAddress;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import dev.rusyaev.utils.parsing.StrategyParser;
+import dev.rusyaev.utils.parsing.XMLParserAddress;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CSVParserAddressTest {
-    private final Address standardAddress = new Address("Some city", "Some street", (short) 1, (byte) 1);
+    private final List<Address> standardAddresses = List.of(new Address("Асбест", "4-я Майская улица", (short) 55, (byte) 2),
+                                                    new Address("Балахна", "4-я Майская улица", (short) 55, (byte) 2),
+                                                    new Address("Брянск", "Железнодорожная улица", (short) 32, (byte) 1),
+                                                    new Address("Брянск", "Текстильщиков, улица", (short) 14, (byte) 2),
+                                                    new Address("Брянск", "2-я Пионерская, улица", (short) 128, (byte) 2),
+                                                    new Address("Брянск", "Симферопольское шоссе", (short) 147, (byte) 5),
+                                                    new Address("Балахна", "4-я Майская улица", (short) 55, (byte) 2),
+                                                    new Address("Брянск", "Железнодорожная улица", (short) 32, (byte) 1),
+                                                    new Address("Брянск", "Текстильщиков, улица", (short) 14, (byte) 2),
+                                                    new Address("Брянск", "2-я Пионерская, улица", (short) 128, (byte) 2),
+                                                    new Address("Брянск", "Симферопольское шоссе", (short) 147, (byte) 5));
+    private final List<Address> testAddresses = new ArrayList<>();
+    private final Path pathToCSV = Paths.get("src/test/resources/address.csv");
 
-    @ParameterizedTest
-    @ValueSource(strings = {"\"Some city\";\"Some street\";1;1", "   \"    Some city    \";\" Some street\"    ;  1  ;   01 "})
-    public void getAddressShouldBeReturnStandardAddress(String parseLine) {
-        assertEquals(standardAddress, new CSVParserAddress().getAddress(parseLine));
+    @Test
+    public void parsingShouldBeReturnStandardListAddresses() throws FileNotFoundException {
+        new StrategyParser(new CSVParserAddress()).parsing(pathToCSV, testAddresses);
+        assertEquals(standardAddresses, testAddresses);
     }
 }

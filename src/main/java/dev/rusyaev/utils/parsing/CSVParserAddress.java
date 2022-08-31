@@ -3,9 +3,28 @@ package dev.rusyaev.utils.parsing;
 import dev.rusyaev.config.Config;
 import dev.rusyaev.entity.Address;
 
-public class CSVParserAddress extends AbstractParserAddress implements ParserAddress {
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+
+public class CSVParserAddress implements ParserAddress {
     @Override
-    public Address getAddress(String parseLine) {
+    public void parsing(String filePath, Collection<Address> collection) throws FileNotFoundException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
+            while (reader.ready()) {
+                try {
+                    String fullAddress = reader.readLine();
+
+                    collection.add(getAddress(fullAddress));
+                } catch (Exception ignoreBecauseIncorrectData) {}
+            }
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException();
+        } catch (IOException ignored) {
+        }
+    }
+
+    private Address getAddress(String parseLine) {
         String[] partsOfAddress = parseLine.split(Config.getProperty("separatorCSV"));
 
         String city = partsOfAddress[0].split("\"")[1].trim();
