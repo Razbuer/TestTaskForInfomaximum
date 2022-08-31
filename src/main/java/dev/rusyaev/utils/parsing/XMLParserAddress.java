@@ -14,7 +14,7 @@ public class XMLParserAddress implements ParserAddress {
     @Override
     public void parsing(String filePath, Collection<Address> collection) throws FileNotFoundException {
         try {
-            XMLStreamReader reader = XMLInputFactory.newDefaultFactory().createXMLStreamReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8));
+            XMLStreamReader reader = XMLInputFactory.newDefaultFactory().createXMLStreamReader(new InputStreamReader(new FileInputStream(filePath)));
 
             while (reader.hasNext()) {
                 int event = reader.next();

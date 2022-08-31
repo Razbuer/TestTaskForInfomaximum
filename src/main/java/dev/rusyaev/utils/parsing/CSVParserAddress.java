@@ -10,7 +10,7 @@ import java.util.Collection;
 public class CSVParserAddress implements ParserAddress {
     @Override
     public void parsing(String filePath, Collection<Address> collection) throws FileNotFoundException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)))) {
             while (reader.ready()) {
                 try {
                     String fullAddress = reader.readLine();

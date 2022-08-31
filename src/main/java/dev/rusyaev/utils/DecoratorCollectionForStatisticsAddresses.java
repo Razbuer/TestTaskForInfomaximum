@@ -20,7 +20,7 @@ public class DecoratorCollectionForStatisticsAddresses<E> implements Collection<
         if (e.getClass() == Address.class) {
             Address address = (Address) e;
 
-            // ÐŸÐ¾Ð´ÑÑ‡Ñ‘Ñ‚ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð° Ð°Ð´Ñ€ÐµÑÐ¾Ð² Ð½Ð° ÐºÐ°Ð¶Ð´Ð¾Ð¼ ÑÑ‚Ð°Ð¶Ðµ
+            // Ïîäñ÷¸ò êîëè÷åñòâà àäðåñîâ íà êàæäîì ýòàæå
             byte floor = address.getFloor();
             String city = address.getCity();
             countAddressesOnFloor.putIfAbsent(city, new HashMap<>());
@@ -28,7 +28,7 @@ public class DecoratorCollectionForStatisticsAddresses<E> implements Collection<
             cityOfCountAddressesOnFloor.putIfAbsent(floor, 1L);
             cityOfCountAddressesOnFloor.put(floor, cityOfCountAddressesOnFloor.get(floor) + 1);
 
-            // ÐŸÐ¾Ð´ÑÑ‡Ñ‘Ñ‚ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð° ÑÐ¾Ð²Ð¿Ð°Ð´ÐµÐ½Ð¸Ð¹ Ð°Ð´Ñ€ÐµÑÐ¾Ð²
+            // Ïîäñ÷¸ò êîëè÷åñòâà ñîâïàäåíèé àäðåñîâ
             if (collection.contains(address)) {
                 doubleAddresses.putIfAbsent(address, 1);
                 doubleAddresses.put(address, doubleAddresses.get(address) + 1);

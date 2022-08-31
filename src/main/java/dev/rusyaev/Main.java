@@ -20,7 +20,6 @@ public class Main {
 
             System.out.println("Enter the path to the file with the extension 'cvs' or 'xml'. To exit the program enter 'exit'.");
             while (!(filePath = scanner.nextLine()).equalsIgnoreCase("exit")) {
-                filePath = "D:/task/address.xml";
                 DecoratorCollectionForStatisticsAddresses<Address> addresses = new DecoratorCollectionForStatisticsAddresses<>(new HashSet<>(), new HashMap<>(), new HashMap<>());
 
                 long start = System.currentTimeMillis();
@@ -28,15 +27,12 @@ public class Main {
                 String extension = Extension.getExtension(filePath);
                 try {
                     switch (extension) {
-                        case "csv":
-                            new StrategyParser(new CSVParserAddress()).parsing(filePath, addresses);
-                            break;
-                        case "xml":
-                            new StrategyParser(new XMLParserAddress()).parsing(filePath, addresses);
-                            break;
-                        default:
+                        case "csv" -> new StrategyParser(new CSVParserAddress()).parsing(filePath, addresses);
+                        case "xml" -> new StrategyParser(new XMLParserAddress()).parsing(filePath, addresses);
+                        default -> {
                             System.out.println("Format incorrect, try again!");
                             continue;
+                        }
                     }
                 } catch (FileNotFoundException e) {
                     System.out.println("The file was not found, check the correctness of the entered data.");
