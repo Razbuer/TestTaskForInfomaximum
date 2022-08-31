@@ -20,15 +20,15 @@ public class DecoratorCollectionForStatisticsAddresses<E> implements Collection<
         if (e.getClass() == Address.class) {
             Address address = (Address) e;
 
-            // РџРѕРґСЃС‡С‘С‚ РєРѕР»РёС‡РµСЃС‚РІР° Р°РґСЂРµСЃРѕРІ РЅР° РєР°Р¶РґРѕРј СЌС‚Р°Р¶Рµ
+            // Подсчёт количества адресов на каждом этаже
             byte floor = address.getFloor();
             String city = address.getCity();
             countAddressesOnFloor.putIfAbsent(city, new HashMap<>());
             Map<Byte, Long> cityOfCountAddressesOnFloor = countAddressesOnFloor.get(city);
-            cityOfCountAddressesOnFloor.putIfAbsent(floor, 1L);
+            cityOfCountAddressesOnFloor.putIfAbsent(floor, 0L);
             cityOfCountAddressesOnFloor.put(floor, cityOfCountAddressesOnFloor.get(floor) + 1);
 
-            // РџРѕРґСЃС‡С‘С‚ РєРѕР»РёС‡РµСЃС‚РІР° СЃРѕРІРїР°РґРµРЅРёР№ Р°РґСЂРµСЃРѕРІ
+            // Подсчёт количества совпадений адресов
             if (collection.contains(address)) {
                 doubleAddresses.putIfAbsent(address, 1);
                 doubleAddresses.put(address, doubleAddresses.get(address) + 1);

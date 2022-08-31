@@ -8,19 +8,30 @@ import dev.rusyaev.utils.parsing.StrategyParser;
 import dev.rusyaev.utils.parsing.XMLParserAddress;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class Main {
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
+        try {
+            LogManager.getLogManager().readConfiguration(Main.class.getClassLoader().getResourceAsStream("logging.properties"));
+        } catch (IOException ignore) {
+            System.out.println("Logger settings not found!");
+        }
+
         try(Scanner scanner = new Scanner(System.in)) {
             String filePath;
 
             System.out.println("Enter the path to the file with the extension 'cvs' or 'xml'. To exit the program enter 'exit'.");
             while (!(filePath = scanner.nextLine()).equalsIgnoreCase("exit")) {
-                filePath = "D:/task/address.xml";
+                filePath = "D:/task/add1.xml";
                 DecoratorCollectionForStatisticsAddresses<Address> addresses = new DecoratorCollectionForStatisticsAddresses<>(new HashSet<>(), new HashMap<>(), new HashMap<>());
 
                 long start = System.currentTimeMillis();
@@ -28,15 +39,12 @@ public class Main {
                 String extension = Extension.getExtension(filePath);
                 try {
                     switch (extension) {
-                        case "csv":
-                            new StrategyParser(new CSVParserAddress()).parsing(filePath, addresses);
-                            break;
-                        case "xml":
-                            new StrategyParser(new XMLParserAddress()).parsing(filePath, addresses);
-                            break;
-                        default:
+                        case "csv" -> new StrategyParser(new CSVParserAddress()).parsing(filePath, addresses);
+                        case "xml" -> new StrategyParser(new XMLParserAddress()).parsing(filePath, addresses);
+                        default -> {
                             System.out.println("Format incorrect, try again!");
                             continue;
+                        }
                     }
                 } catch (FileNotFoundException e) {
                     System.out.println("The file was not found, check the correctness of the entered data.");

@@ -4,13 +4,16 @@ import dev.rusyaev.config.Config;
 import dev.rusyaev.entity.Address;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CSVParserAddress implements ParserAddress {
+    private static final Logger logger = Logger.getLogger(CSVParserAddress.class.getName());
+
     @Override
     public void parsing(String filePath, Collection<Address> collection) throws FileNotFoundException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)))) {
             while (reader.ready()) {
                 try {
                     String fullAddress = reader.readLine();
@@ -19,8 +22,10 @@ public class CSVParserAddress implements ParserAddress {
                 } catch (Exception ignoreBecauseIncorrectData) {}
             }
         } catch (FileNotFoundException e) {
+            logger.log(Level.SEVERE, e.getMessage());
             throw new FileNotFoundException();
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 
