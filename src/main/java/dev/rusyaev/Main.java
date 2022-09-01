@@ -54,10 +54,6 @@ public class Main {
                     continue;
                 }
 
-                long end = System.currentTimeMillis();
-
-                System.out.printf("Working hours of the program: %dms.", (end - start));
-
                 System.out.println("\n______________________________________________");
                 System.out.println("Number of apartments on each floor of each city:\n");
                 for (String city : addresses.getCountAddressesOnFloor().keySet()) {
@@ -75,9 +71,8 @@ public class Main {
                 }
                 System.out.println("______________________________________________\n");
 
-                long end2 = System.currentTimeMillis();
-                System.out.printf("Working hours of the program: %dms.", (end2 - start));
-                logger.fine("Parsing  is completed in " + (end2 - start));
+                long end = System.currentTimeMillis();
+                logger.fine("Parsing  is completed in " + (end - start) + " ms.");
 
                 System.out.printf("\nSuccess! Created %d addresses.\n", addresses.size());
                 System.out.println("To exit the program enter 'exit' or enter the path to the file.");
