@@ -1,6 +1,9 @@
 package dev.rusyaev.utils;
 
+import dev.rusyaev.Main;
+
 import java.nio.file.Path;
+import java.util.logging.Logger;
 
 public class Extension {
     public static String getExtension(String pathToFile) {

@@ -24,6 +24,8 @@ public class Main {
             LogManager.getLogManager().readConfiguration(Main.class.getClassLoader().getResourceAsStream("logging.properties"));
         } catch (IOException ignore) {
             System.out.println("Logger settings not found!");
+        } finally {
+            logger.fine("Program is starting.");
         }
 
         try(Scanner scanner = new Scanner(System.in)) {
@@ -31,17 +33,18 @@ public class Main {
 
             System.out.println("Enter the path to the file with the extension 'cvs' or 'xml'. To exit the program enter 'exit'.");
             while (!(filePath = scanner.nextLine()).equalsIgnoreCase("exit")) {
-                filePath = "D:/task/add1.xml";
                 DecoratorCollectionForStatisticsAddresses<Address> addresses = new DecoratorCollectionForStatisticsAddresses<>(new HashSet<>(), new HashMap<>(), new HashMap<>());
 
                 long start = System.currentTimeMillis();
 
                 String extension = Extension.getExtension(filePath);
                 try {
+                    logger.fine("Parsing  is starting");
                     switch (extension) {
                         case "csv" -> new StrategyParser(new CSVParserAddress()).parsing(filePath, addresses);
                         case "xml" -> new StrategyParser(new XMLParserAddress()).parsing(filePath, addresses);
                         default -> {
+                            logger.fine("Format incorrect, try again! Format: " + extension + ". Path: " + filePath);
                             System.out.println("Format incorrect, try again!");
                             continue;
                         }
@@ -74,11 +77,13 @@ public class Main {
 
                 long end2 = System.currentTimeMillis();
                 System.out.printf("Working hours of the program: %dms.", (end2 - start));
+                logger.fine("Parsing  is completed in " + (end2 - start));
 
                 System.out.printf("\nSuccess! Created %d addresses.\n", addresses.size());
                 System.out.println("To exit the program enter 'exit' or enter the path to the file.");
             }
         }
+        logger.fine("Program is completed without problem.");
     }
 
 }
